@@ -24,3 +24,25 @@ SELECT V.customer_id,COUNT(*) count_no_trans
 FROM Visits V LEFT JOIN Transactions T ON T.visit_id=V.visit_id
 WHERE T.visit_id IS NULL
 GROUP BY customer_id;
+
+-- 1934. Confirmation Rate
+SELECT 
+    s.user_id,
+    ROUND(
+        IFNULL(
+            (SELECT COUNT(*) FROM Confirmations WHERE user_id = s.user_id AND action = 'confirmed')/
+            (SELECT COUNT(*) FROM Confirmations WHERE user_id = s.user_id),
+            0),
+            2
+    ) AS confirmation_rate
+FROM 
+    Signups s;
+-- IFNULL사용
+
+
+-- 1934. Confirmation Rate 
+SELECT s.user_id,
+    ROUND(AVG(IF(c.action="confirmed",1,0)),2) AS confirmation_rate
+FROM Signups s LEFT JOIN Confirmations c ON s.user_id= c.user_id
+GROUP BY user_id;
+-- 조인 사용
