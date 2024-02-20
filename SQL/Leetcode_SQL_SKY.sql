@@ -46,3 +46,31 @@ SELECT s.user_id,
 FROM Signups s LEFT JOIN Confirmations c ON s.user_id= c.user_id
 GROUP BY user_id;
 -- 조인 사용
+
+-- 197. Rising Temperature
+SELECT 
+    w2.id
+FROM 
+    Weather w1, Weather w2
+WHERE 
+    DATEDIFF(w2.recordDate, w1.recordDate) = 1 
+AND 
+    w2.temperature > w1.temperature;
+-- datediff
+
+WITH PreviousWeatherData AS
+(
+    SELECT 
+        id,
+        recordDate,
+        temperature, 
+        LAG(temperature, 1) OVER (ORDER BY recordDate) AS PreviousTemperature,
+        LAG(recordDate, 1) OVER (ORDER BY recordDate) AS PreviousRecordDate
+    FROM 
+        Weather
+)
+-- lag
+
+
+
+
