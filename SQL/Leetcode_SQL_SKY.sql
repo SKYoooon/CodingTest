@@ -64,7 +64,7 @@ WITH PreviousWeatherData AS
         id,
         recordDate,
         temperature, 
-        LAG(temperature, 1) OVER (ORDER BY recordDate) AS PreviousTemperature,
+        LAG(temperature, 1) OVER (ORDER BY recordDate) AS PreviousTemperature,/
         LAG(recordDate, 1) OVER (ORDER BY recordDate) AS PreviousRecordDate
     FROM 
         Weather
