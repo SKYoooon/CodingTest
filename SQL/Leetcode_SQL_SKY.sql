@@ -79,6 +79,6 @@ AND
     recordDate = DATE_ADD(PreviousRecordDate, INTERVAL 1 DAY);
 -- lag
 
-
+--1661. Average Time of Process per Machine
 
 
