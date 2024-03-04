@@ -1,2 +1,1 @@
-# Baekjooon
-문제 해결 코드
+SQL 및 Python(Pandas) 연습용 문제 풀이
