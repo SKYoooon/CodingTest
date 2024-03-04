@@ -79,6 +79,61 @@ AND
     recordDate = DATE_ADD(PreviousRecordDate, INTERVAL 1 DAY);
 -- lag
 
+--1661. Average Time of Process per Machine
+SELECT a.machine_id,
+    ROUND(AVG(b.timestamp - a.timestamp), 3) AS processing_time
+FROM Activity a,
+    Activity b
+WHERE
+    a.machine_id = b.machine_id
+AND
+    a.process_id = b.process_id
+AND
+    a.activity_type = 'start'
+AND
+    b.activity_type = 'end'
+GROUP BY machine_id
+-- 테이블 분리
 
+SELECT 
+    machine_id,
+    ROUND(SUM(CASE WHEN activity_type='start' THEN timestamp*-1 ELSE timestamp END)*1.0
+    / (SELECT COUNT(DISTINCT process_id)),3) AS processing_time
+FROM 
+    Activity
+GROUP BY machine_id
+--CASE WHEN
 
+--577. Employee Bonus
+SELECT
+    e.name, b.bonus
+FROM 
+    employee e
+LEFT JOIN 
+    bonus b
+ON
+     e.empID = b.empID 
+WHERE
+     b.bonus <1000
+OR
+     b.bonus IS NULL;
+
+--
+SELECT
+    st.student_id,
+    st.student_name,
+    su.subject_name,
+    (
+        SELECT COUNT(*)
+        FROM examinations ex
+        WHERE ex.student_id = st.student_id
+        AND ex.subject_name = su.subject_name
+    ) attended_exams
+FROM
+    students st
+CROSS JOIN
+    subjects su
+ORDER BY
+    st.student_id, su.subject_name;
+--서브쿼리, crossjoin
 
