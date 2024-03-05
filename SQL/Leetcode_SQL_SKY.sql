@@ -137,3 +137,69 @@ ORDER BY
     st.student_id, su.subject_name;
 --서브쿼리, crossjoin
 
+
+--620. Not Boring Movies
+SELECT
+    id,
+    movie,
+    description,
+    rating
+FROM
+    cinema
+WHERE
+    id % 2 = 1
+    AND description != 'boring'
+ORDER BY
+    rating DESC
+
+--1251. Average Selling Price
+SELECT
+    p.product_id,
+    IFNULL(ROUND(SUM(units*price)/SUM(units),2),0) average_price
+FROM
+    prices p
+LEFT JOIN
+    unitssold u
+ON
+    p.product_id = u.product_id
+AND
+    u.purchase_date BETWEEN start_date AND end_date
+GROUP BY
+    product_id
+--INFULL 대신 COALESCE도 가능
+
+--1075. Project Employees I
+SELECT
+    project_id,
+    ROUND(AVG(experience_years), 2) average_years
+FROM
+    project p
+LEFT JOIN
+    employee e ON p.employee_id = e.employee_id
+GROUP BY
+    project_id
+
+--1633. Percentage of Users Attended a Contest
+SELECT
+    contest_id,
+    ROUND(COUNT(user_id)*100/(SELECT COUNT(user_id) FROM users),2) percentage
+FROM
+    register
+GROUP BY
+    contest_id
+ORDER BY
+    percentage DESC,
+    contest_id ASC
+
+--1211. Queries Quality and Percentage
+SELECT
+    query_name,
+    ROUND(AVG(rating/position), 2) AS quality,
+    ROUND((SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) / COUNT(result)) * 100, 2) AS poor_query_percentage
+FROM
+    queries
+WHERE
+    query_name IS NOT NULL
+GROUP BY
+    query_name
+
