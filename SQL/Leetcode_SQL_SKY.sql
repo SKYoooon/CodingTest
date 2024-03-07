@@ -203,3 +203,14 @@ WHERE
 GROUP BY
     query_name
 
+--2356. Number of Unique Subjects Taught by Each Teacher
+SELECT
+    teacher_id,
+    COUNT(DISTINCT subject_id) cnt
+FROM
+    teacher
+GROUP BY
+    teacher_id
+
+
+--1141. User Activity for the Past 30 Days I
