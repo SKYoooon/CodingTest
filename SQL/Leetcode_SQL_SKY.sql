@@ -1,4 +1,43 @@
+--1789. Primary Department for Each Employee
+--내부 쿼리
+SELECT
+    employee_id, 
+    department_id
+FROM
+    employee
+WHERE employee_id IN
+    (SELECT employee_id 
+    FROM employee 
+    GROUP BY employee_id 
+    HAVING COUNT(*) = 1) 
+    OR primary_flag = 'Y' 
+
+--UNION
+SELECT employee_id, department_id
+ FROM Employee WHERE primary_flag = 'Y'UNION
+  SELECT employee_id, department_id FROM Employee
+   GROUP BY employee_id
+    HAVING COUNT(department_id) = 1;
+
+--********
+--********
+
 -- 1731. The Number of Employees Which Report to Each Employee
+SELECT
+    e1.employee_id,
+    e1.name,
+    COUNT(*) reports_count,
+    ROUND(AVG(e2.age),0) average_age
+FROM
+    employees e1
+JOIN
+    employees e2
+ON
+    e1.employee_id = e2.reports_to
+GROUP BY
+    employee_id
+ORDER BY
+    employee_id
 
 
 --********
