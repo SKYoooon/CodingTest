@@ -1,3 +1,26 @@
+-- 610. Triangle Judgement 1. IF / 2. CASE WHEN
+SELECT
+    x,
+    y,
+    z,
+    IF(x+y>z and y+z>x and z+x>y,"Yes","No") AS triangle
+FROM
+    triangle
+
+--------
+SELECT
+    x,
+    y,
+    z, 
+    CASE WHEN x + y > z and x + z > y and y + z > x then 'Yes'  
+    ELSE 'No' END AS triangle
+FROM Triangle
+
+
+--********
+--********
+
+
 --1789. Primary Department for Each Employee
 --내부 쿼리
 SELECT
