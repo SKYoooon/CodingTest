@@ -13,7 +13,7 @@ WHERE
     AND e1.manager_id IS NOT NULL
 ORDER BY employee_id
 
-
+ 
 ------
 
 SELECT
