@@ -1,3 +1,16 @@
+-- 1667. Fix Names in a Table
+SELECT
+    user_id,
+    CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name,2))) name
+FROM
+    users
+ORDER BY
+    user_id
+
+--********
+--********
+
+
 -- 1978. Employees Whose Manager Left the Company 1. JOIN / 2, 서브쿼리
 SELECT
     e1.employee_id
